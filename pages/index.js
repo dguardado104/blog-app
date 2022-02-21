@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import Cookies from 'universal-cookie';
-import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import { Button, Container, Row, Col, Nav, FloatingLabel, Form, Control  } from 'react-bootstrap';
 
 export default function Home() {
-
-  const cookies = new Cookies();
 
   const [form, setForm] = useState({
     title: "",
@@ -44,21 +42,47 @@ export default function Home() {
     return months[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
   }
 
-  
-
   return (
-    <div className={styles.container}>
-        <h2>The Blog</h2>
-        <div className={styles.container}>
+    <div>
+      <Nav defaultActiveKey="/" as="ul">
+        <Nav.Item as="li">
+          <Link href='/' passHref>
+            <Nav.Link>Blog</Nav.Link>
+          </Link>
+        </Nav.Item>
+        <Nav.Item as="li">
+          <Link href='/order-form' passHref>
+            <Nav.Link>Order Form</Nav.Link>
+          </Link>
+        </Nav.Item>
+        <Nav.Item as="li">
+          <Link href='/login' passHref>
+            <Nav.Link>Login</Nav.Link>
+          </Link>
+        </Nav.Item>
+      </Nav>
+      <Container>
+        <Row>
+          <Col>
+            <h2>The Blog</h2>
             
-          <input type="text" name="title" placeholder="Title" className={styles.formControl} onChange={handleChange} /><br />
+            <FloatingLabel controlId="floatingInput" label="Title" className="mb-3">
+              <Form.Control type="text" placeholder="Title" name="title" onChange={handleChange} />
+            </FloatingLabel>
 
-          <textarea name="body" cols="30" rows="10" placeholder="Write something..." className={styles.formControl} onChange={handleChange}></textarea><br />
+            <FloatingLabel controlId="floatingInput" label="Body" className="mb-3">
+            <Form.Control as="textarea" name="body" cols="30" rows="10" placeholder="Write something..." onChange={handleChange} style={{ height: '100px' }}></Form.Control>
+            </FloatingLabel>
 
-          <input type="text" name="autor" placeholder="Autor" className={styles.formControl} onChange={handleChange} /><br />
+            <FloatingLabel controlId="floatingInput" label="Autor" className="mb-3">
+              <Form.Control type="text" placeholder="Autor" name="autor" onChange={handleChange} />
+            </FloatingLabel>
 
-          <button className={styles.btn} onClick={addPost}>Add Post</button>
-        </div>
+            <Button onClick={addPost}>Add Post</Button>
+          </Col>
+        </Row>
+      
+      </Container>
     </div>
   )
 }
